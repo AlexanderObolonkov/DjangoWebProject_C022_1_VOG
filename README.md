@@ -20,7 +20,7 @@
 - [SQLite](https://sqlite.org/index.html)
 
 
-## Зависимости (ПОМЕНЯТЬ)
+## Зависимости
 [Представлены здесь](https://github.com/AlexanderObolonkov/BottleWebProject_C022_1_VOG/blob/main/requirements.txt)
 
 ## Локальная разработка

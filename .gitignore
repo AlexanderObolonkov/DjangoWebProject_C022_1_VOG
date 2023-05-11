@@ -1,0 +1,13 @@
+# ide folders
+.idea/
+.vscode/
+
+# not project files
+__pycache__/
+venv/
+.mypy_cache/
+static/admin/
+tips.md
+db.sqlite3
+.env
+db.json

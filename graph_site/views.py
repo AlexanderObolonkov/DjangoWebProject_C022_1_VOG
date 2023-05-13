@@ -16,6 +16,7 @@ class MainView(View):
             }
         )
 
+
 class BFS_Method(View):
     def get(self, request, *args, **kwargs):
         return render(
@@ -25,4 +26,3 @@ class BFS_Method(View):
                 'nav_bar': 'index'
             }
         )
-

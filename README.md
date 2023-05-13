@@ -29,7 +29,8 @@
 
 1) Скопируйте содержимое `.env.example` в `.env` и измените файл `.env`, заполнив переменные окружения:
     ```bash
-    cp CoffeeHouse_SoftwareTools/.env.example CoffeeHouse_SoftwareTools/.env
+   cd BottleWebProject_C022_1_ВОГ/
+   cp .env.example .env
     ```
 
 2) Создайте и активируйте виртуальное окружение
@@ -51,11 +52,9 @@
     pip install -r requirements.txt
     ```
 
-4) Выполните migrations, заполните таблицы фикстурами, соберите статику, запустите сервер:
+4) Выполните migrations, запустите сервер:
     ```bash
     python manage.py migrate
-    python manage.py loaddata <path_to_fixture_files>
-    python manage.py collectstatic
     python manage.py runserver
     ```   
 ## Разработчики

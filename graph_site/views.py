@@ -26,3 +26,14 @@ class BFS_Method(View):
                 'nav_bar': 'index'
             }
         )
+
+
+class KruskalMethod(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'graph_site/kruskal_method.html',
+            context={
+                'nav_bar': 'kruskal'
+            }
+        )

@@ -27,6 +27,7 @@ class BFS_Method(View):
                 'nav_bar': 'index'
             }
         )
+<<<<<<< HEAD
 
 
 class KruskalMethod(View):
@@ -39,3 +40,16 @@ class KruskalMethod(View):
                 'nav_bar': 'kruskal'
             }
         )
+=======
+    
+
+class DFS_Method(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'graph_site/dfs.html',
+            context={
+                'nav_bar': 'index'
+            }
+        )
+>>>>>>> 92926cc (Made a transition to the page DFS)

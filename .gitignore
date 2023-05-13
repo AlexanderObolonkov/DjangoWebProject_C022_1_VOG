@@ -12,3 +12,4 @@ db.sqlite3
 .env
 db.json
 PractEnv/
+.venv/

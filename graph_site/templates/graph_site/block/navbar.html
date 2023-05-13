@@ -1,0 +1,37 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            VOGraph
+            <img src="{% static 'img/icon.svg' %}" width="50" height="50" class="d-inline-block align-text-bottom"
+                 alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 top-menu">
+                <li class="nav-item">
+                    <a class="nav-link {% if nav_bar == 'index' %}active{% endif %}"
+                       href="{% url 'index' %}">Главная</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal-cart">Страница 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Страница
+                        2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Страница
+                        3</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="#">Отзывы</a> и т.д. можно добавлять
+                </li>  -->
+            </ul>
+        </div>
+    </div>
+</nav>

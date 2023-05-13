@@ -1,0 +1,67 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}COFFEE HOUSE{% endblock %}
+
+{% block page_content %}
+    <section>
+        <div class="container-fluid my-carousel">
+            <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img/image1.jpg' %}" class="d-block w-100" alt="Первый слайд">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>Готовим с любовью</h2>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/image2.jpg' %}" class="d-block w-100" alt="Второй слайд">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>Используем лучшее оборудование</h2>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/image3.jpg' %}" class="d-block w-100" alt="Третий слайд">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>Санкт-Петербург, Московский проспект д.147</h2>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content">
+
+        <section class="story-content">
+            <div class="container">
+                <h1 class="text-uppercase text-center">Story</h1>
+                <div class="row align-items-start">
+                    <div class="col-lg-6 col-sm-12">
+                        <img src="{% static 'img/story.png' %}" alt="story">
+                    </div>
+                    <div class="col-lg-6 col-sm-12 text-left">
+                        <p>Нам ничего не известно о самых первых любителях кофе, но мы почти наверняка знаем, что жили
+                            они в Эфиопии. Упоминание о напитке "баншам" - а по-видимому, это и есть кофе - встречаются
+                            в арабских исторических документах, относящихся к 900-1000 гг. Помимо свойств этого напитка,
+                            полезных для желудка, конечностей, кожи, древние авторы отмечали его "замечательный запах,
+                            проникающий во все тело". Lorem ipsum dolor sit amet consectetur adipisicing elit. At quod
+                            natus explicabo illo eaque rerum dignissimos provident veniam? Tempore aliquam vel, dolorum
+                            nemo earum vitae omnis illo. Similique, culpa aliquam.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock %}

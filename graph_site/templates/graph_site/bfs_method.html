@@ -1,5 +1,6 @@
-
 {% extends './base.html' %}
+
+{% load render_table from django_tables2 %}
 {% load static %}
 
 {% block title %}COFFEE HOUSE{% endblock %}
@@ -8,7 +9,7 @@
        <div class="main-content">
 
         <section class="method_section">
-           
+		{% render_table table %}           
         </section>
 
     </div>

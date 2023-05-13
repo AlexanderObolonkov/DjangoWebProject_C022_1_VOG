@@ -17,11 +17,11 @@
                        href="{% url 'index' %}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if nav_bar == 'index' %}active{% endif %}"
+                    <a class="nav-link {% if nav_bar == 'bfs_method' %}active{% endif %}"
                        href="{% url 'bfs_method' %}">Обход в ширину</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if nav_bar == 'index' %}active{% endif %}" href="{% url 'dfs_method' %}">Обход в глубину</a>
+                    <a class="nav-link {% if nav_bar == 'dfs' %}active{% endif %}" href="{% url 'dfs_method' %}">Обход в глубину</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if nav_bar == 'kruskal' %}active{% endif %}" href="{% url 'kruskal' %}">Алгоритм Краскала</a>

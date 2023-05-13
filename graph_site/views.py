@@ -15,3 +15,14 @@ class MainView(View):
                 'nav_bar': 'index'
             }
         )
+
+class BFS_Method(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'graph_site/bfs_method.html',
+            context={
+                'nav_bar': 'index'
+            }
+        )
+

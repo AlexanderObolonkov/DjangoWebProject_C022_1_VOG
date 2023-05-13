@@ -18,7 +18,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal-cart">Страница 1</a>
+			<a class="nav-link" href="{% url 'bfs_method' %}" data-bs-toggle="modal" data-bs-target="#modal-cart">Обход в ширину</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Страница

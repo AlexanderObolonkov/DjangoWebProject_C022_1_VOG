@@ -27,6 +27,18 @@ class BFS_Method(View):
                 'nav_bar': 'index'
             }
         )
+
+
+class KruskalMethod(View):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        """GET-запрос для страницы метода Краскала"""
+        return render(
+            request,
+            'graph_site/kruskal_method.html',
+            context={
+                'nav_bar': 'kruskal'
+            }
+        )
     
 
 class DFS_Method(View):

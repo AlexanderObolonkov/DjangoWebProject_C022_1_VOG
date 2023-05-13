@@ -1,3 +1,6 @@
+from collections import deque
+
+
 def kruskal_algorithm(graph: list[tuple[int, int, int]]) -> list[tuple[int, int, int]]:
     sorted_graph = sorted(graph, key=lambda x: x[0])
     connected_vertices = set()  # список соединенных вершин
@@ -63,6 +66,32 @@ def kruskal_algorithm2(graph: list[tuple[int, int, int]]) -> list[tuple[int, int
 
     return skeleton
 
+
+def get_neighbors(graph, v):
+    for i in graph:
+        if v in i:
+            yield i[0] if i[0] != v else i[1]
+ 
+
+
+def bfs_algoritm(graph: list[tuple[int,int]] -> list[tuple[int,int]], start:int):
+    queue = deque() # Очередь, в которую заполняются соседи текущего узла
+    queue.append(start) # Добавляем начальный узел в очередь
+    was = {start} # Посещенные узлы
+    ostov = [] # Итоговое остовное дерево
+    prev = start # Предыдущий узел
+
+    while queue:
+        prev = queue.popleft() # Удаляем из очереди текущий узел
+        # Получаем соседей узла, добавляем их в очередь и добавляем узел в посещенные
+        for i in get_neighbors(graph, prev):
+            if(i not in was):
+                queue.append(i)
+                was.add(i)
+                ostov.append((prev, i)) # Добавляем в остовное дерево ребро
+
+    return ostov
+ 
 
 if __name__ == '__main__':
     """

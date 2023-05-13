@@ -2,12 +2,13 @@ from os import getenv
 
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.core.mail import send_mail, BadHeaderError
 
 
 class MainView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        """GET-запрос для главной страницы"""
         return render(
             request,
             'graph_site/index.html',
@@ -24,5 +25,17 @@ class BFS_Method(View):
             'graph_site/bfs_method.html',
             context={
                 'nav_bar': 'index'
+            }
+        )
+
+
+class KruskalMethod(View):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        """GET-запрос для страницы метода Краскала"""
+        return render(
+            request,
+            'graph_site/kruskal_method.html',
+            context={
+                'nav_bar': 'kruskal'
             }
         )

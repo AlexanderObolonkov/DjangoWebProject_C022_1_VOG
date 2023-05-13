@@ -21,16 +21,11 @@
                        href="{% url 'bfs_method' %}">Обход в ширину</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Страница
-                        2</a>
+                    <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Обход в глубину</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if nav_bar == 'contacts' %}active{% endif %}" href="{% url 'index' %}">Страница
-                        3</a>
+                    <a class="nav-link {% if nav_bar == 'kruskal' %}active{% endif %}" href="{% url 'kruskal' %}">Алгоритм Краскала</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="#">Отзывы</a> и т.д. можно добавлять
-                </li>  -->
             </ul>
         </div>
     </div>

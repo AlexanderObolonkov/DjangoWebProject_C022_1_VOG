@@ -1,6 +1,17 @@
 from collections import deque
 
 
+def get_neighbors(graph, v):
+    for i in graph:
+        if v in i:
+            yield i[0] if i[0] != v else i[1]
+ 
+
+def get_nodes(graph:list[int,int]):
+    return sorted(list(set([j for i in graph for j in i])))
+
+
+
 def kruskal_algorithm(graph: list[tuple[int, int, int]]) -> list[tuple[int, int, int]]:
     sorted_graph = sorted(graph, key=lambda x: x[0])
     connected_vertices = set()  # список соединенных вершин
@@ -67,14 +78,7 @@ def kruskal_algorithm2(graph: list[tuple[int, int, int]]) -> list[tuple[int, int
     return skeleton
 
 
-def get_neighbors(graph, v):
-    for i in graph:
-        if v in i:
-            yield i[0] if i[0] != v else i[1]
- 
-
-
-def bfs_algoritm(graph: list[tuple[int,int]] -> list[tuple[int,int]], start:int):
+def bfs_algoritm(graph: list[tuple[int,int]], start:int) -> list[tuple[int,int]]:
     queue = deque() # Очередь, в которую заполняются соседи текущего узла
     queue.append(start) # Добавляем начальный узел в очередь
     was = {start} # Посещенные узлы

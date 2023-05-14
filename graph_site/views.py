@@ -11,7 +11,7 @@ from .tables.tables import GraphTable
 
 # Вывод смежной таблицы
 def result(graph: list[int, int], template, request, active):
-    table = GraphTable([])
+    table = GraphTable(graph)
     return render(
             request,
             template,
@@ -38,7 +38,7 @@ class MainView(View):
 class BFS_Method(SingleTableView):
     table = GraphTable([])
     def get(self, request, *args, **kwargs):
-        return result([], 'graph_site/bfs_method.html', request, 'bfs_method') 
+        return result([(1,2),(1,3),(2,3),(2,4),(4,5),(4,6),(5,6)], 'graph_site/bfs_method.html', request, 'bfs_method') 
 
 
 class KruskalMethod(View):

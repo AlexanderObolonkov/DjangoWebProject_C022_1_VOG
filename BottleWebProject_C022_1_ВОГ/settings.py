@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_tables2',
     'graph_site',
-    'django_tables2',
 ]
 
 MIDDLEWARE = [

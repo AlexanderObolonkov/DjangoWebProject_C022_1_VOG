@@ -1,13 +1,25 @@
 import django_tables2 as tables
+from ..services.math_services import get_nodes
 
 
 class GraphTable(tables.Table):
-    name = tables.columns.TemplateColumn(template_code=u"""{{ record.name }}""", orderable=True, verbose_name='Name')
-    surname = tables.columns.TemplateColumn(template_code=u"""{{ record.surname }}""", orderable=True, verbose_name='Surname')
-    address = tables.columns.TemplateColumn(template_code=u"""{{ record.address }}""", orderable=True, verbose_name='Address')
+    def __init__(self, graph:list[int,int]):
+        print(graph)
+        data = []
 
-    class Meta:
-        attrs = {'class': 'table table-condensed table-vertical-center', 'id': 'dashboard_table'}
-        fields = ('name', 'surname', 'address')
-        sequence = fields
-        order_by = ('-name', ) 
+        # Получаем все узлы графа
+        nodes = get_nodes(graph)
+        # Получаем кол-во узлов, чтобы не получать много раз в цикле
+        nodes_count = len(nodes)
+
+        for i in nodes:
+            self.base_columns[f'{i}'] = tables.Column()
+            row = {}
+            for j in nodes:
+                if (i, j) in graph or (j,i) in graph:
+                    row[j] = 1
+                else:
+                    row[j] = 0
+            data.append(row)
+
+        super().__init__(data)

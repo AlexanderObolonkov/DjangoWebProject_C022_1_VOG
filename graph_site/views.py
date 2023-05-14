@@ -62,3 +62,14 @@ class DFS_Method(View):
                 'nav_bar': 'dfs'
             }
         )
+
+
+class Authors(View):
+    def get (self,request,*args, **kwargs):
+        return render(
+            request,
+            'graph_site/authors.html',
+            context={
+                'nav_bar': 'authors'
+            }
+        )

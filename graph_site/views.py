@@ -1,6 +1,6 @@
 from os import getenv
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.core.mail import send_mail, BadHeaderError
@@ -67,13 +67,14 @@ class KruskalMethod(View):
         for d in self.network.get_edges():
             d['title'] = d['width']
         self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
-        return render(
-            request,
-            'graph_site/kruskal_method.html',
-            context={
-                'nav_bar': 'kruskal',
-            }
-        )
+        return redirect('kruskal')
+        # return render(
+        #     request,
+        #     'graph_site/kruskal_method.html',
+        #     context={
+        #         'nav_bar': 'kruskal',
+        #     }
+        # )
 
 
 class DFS_Method(View):

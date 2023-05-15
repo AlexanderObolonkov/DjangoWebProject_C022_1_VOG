@@ -13,7 +13,7 @@ class GraphTable(tables.Table):
         nodes_count = len(nodes)
 
         for i in nodes:
-            self.base_columns[f'{i}'] = tables.Column()
+            self.base_columns[f'{i}'] = tables.Column(attrs={"th":{"class":"table-light text-center"}})
             row = {}
             for j in nodes:
                 if (i, j) in graph or (j,i) in graph:
@@ -25,4 +25,8 @@ class GraphTable(tables.Table):
         super().__init__(data)
 
     class Meta:
-        attrs = {"align":"center"}
+        attrs = {"class":"table table-bordered",
+                "align":"center"}
+        row_attrs = {
+                "align":"center"
+        }

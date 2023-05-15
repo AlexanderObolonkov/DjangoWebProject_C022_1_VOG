@@ -6,8 +6,11 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.core.mail import send_mail, BadHeaderError
 from django_tables2 import SingleTableView
 
+from BottleWebProject_C022_1_ВОГ import settings
+from graph_site.services.app_services import input_to_edges
 
 from .tables.tables import GraphTable
+from pyvis.network import Network
 
 
 class MainView(View):
@@ -23,12 +26,13 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
-    table = GraphTable([(1,2), (3,1), (3,4), (5,4), (5,1)])
+    table = GraphTable([(1, 2), (3, 1), (3, 4), (5, 4), (5, 1)])
+
     def get(self, request, *args, **kwargs):
         return render(
             request,
             'graph_site/bfs_method.html',
-            context ={
+            context={
                 'nav_bar': 'bfs_method',
                 'table': self.table
             }
@@ -38,18 +42,39 @@ class BFS_Method(SingleTableView):
         table = GraphTable(graph)
 
 
-
 class KruskalMethod(View):
+    network = Network()
+
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода Краскала"""
         return render(
             request,
             'graph_site/kruskal_method.html',
-            context ={
+            context={
                 'nav_bar': 'kruskal'
             }
         )
-   
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        """POST-запрос для страницы метода Краскала"""
+        self.network = Network()
+        nodes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
+        self.network.add_edges(input_to_edges(request.POST['input_graph']))
+        # self.network.add_edges([(1, 2, 10), (2, 3, 5), (3, 4, 5), (3, 5, 2), (2, 6, 2), (6, 7, 2),
+        #                        (6, 8, 2), (6, 9, 2), (6, 10, 2)])
+        # network.add_edge(1, 2, value=10, title='10')
+        for d in self.network.get_edges():
+            d['title'] = d['width']
+        self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+        return render(
+            request,
+            'graph_site/kruskal_method.html',
+            context={
+                'nav_bar': 'kruskal',
+            }
+        )
+
 
 class DFS_Method(View):
     def get(self, request, *args, **kwargs):
@@ -63,7 +88,7 @@ class DFS_Method(View):
 
 
 class Authors(View):
-    def get (self,request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         return render(
             request,
             'graph_site/authors.html',
@@ -71,3 +96,16 @@ class Authors(View):
                 'nav_bar': 'authors'
             }
         )
+
+    class ResultView(View):
+        def get(self, request, *args, **kwargs):
+            table = GraphTable(context['graph'])
+            return render(
+                request,
+                'graph_site/result.html',
+                context={
+                    'nav_bar': 'authors',
+                    'table': table
+                }
+            )
+

@@ -10,18 +10,25 @@
                 <div class="main-content">
                     <div class="row align-items-start">
                         <div class="col-lg-8 col-sm-12">
-                            Тут будет
+                            {% include './pvis_graph_file.html' %}
                         </div>
                         <div class="col-lg-4 col-sm-12">
                             <section class="method_section">
-                                <h4>Ввод</h4>
-                                <label>
-                                    <textarea class="graph-input" name="input_graph" cols="10" rows="7"></textarea>
-                                </label>
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary">
-                                        Решить
-                                    </button>
+                                    <form method="post" action="{% url 'kruskal' %}">
+                                        {% csrf_token %}
+                                        <h4>Ввод</h4>
+                                        <label>
+                                            <textarea class="graph-input" name="input_graph" cols="10"
+                                                      rows="7"></textarea>
+                                        </label>
+                                        <button name="value" value="123" type="submit" class="btn btn-outline-primary">
+                                            Визуализировать
+                                        </button>
+                                        <button name="value" value="321" type="submit" class="btn btn-outline-primary">
+                                            Решить
+                                        </button>
+                                    </form>
                                 </div>
                             </section>
                             <section class="method_section">

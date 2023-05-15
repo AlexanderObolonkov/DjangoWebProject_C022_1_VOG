@@ -9,19 +9,6 @@ from django_tables2 import SingleTableView
 
 from .tables.tables import GraphTable
 
-# Вывод смежной таблицы
-def result(graph: list[int, int], template, request, active):
-    table = GraphTable(graph)
-    return render(
-            request,
-            template,
-            context={
-                'nav_bar':active,
-                'table':table
-            }
-        )
-
-
 
 class MainView(View):
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
@@ -36,9 +23,20 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
-    table = GraphTable([])
+    table = GraphTable([(1,2), (3,1), (3,4), (5,4), (5,1)])
     def get(self, request, *args, **kwargs):
-        return result([(1,2),(1,3),(2,3),(2,4),(4,5),(4,6),(5,6)], 'graph_site/bfs_method.html', request, 'bfs_method') 
+        return render(
+            request,
+            'graph_site/bfs_method.html',
+            context ={
+                'nav_bar': 'bfs_method',
+                'table': self.table
+            }
+        )
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        table = GraphTable(graph)
+
 
 
 class KruskalMethod(View):
@@ -51,7 +49,7 @@ class KruskalMethod(View):
                 'nav_bar': 'kruskal'
             }
         )
-    
+   
 
 class DFS_Method(View):
     def get(self, request, *args, **kwargs):

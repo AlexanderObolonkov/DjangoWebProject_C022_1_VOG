@@ -23,3 +23,6 @@ class GraphTable(tables.Table):
             data.append(row)
 
         super().__init__(data)
+
+    class Meta:
+        attrs = {"align":"center"}

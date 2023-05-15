@@ -13,3 +13,4 @@ db.sqlite3
 db.json
 PractEnv/
 .venv/
+pvis_graph_file.html

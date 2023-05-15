@@ -79,13 +79,14 @@ class KruskalMethod(View):
         for d in self.network.get_edges():
             d['title'] = d['width']
         self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
-        return render(
-            request,
-            'graph_site/kruskal_method.html',
-            context={
-                'nav_bar': 'kruskal',
-            }
-        )
+        return redirect('kruskal')
+        # return render(
+        #     request,
+        #     'graph_site/kruskal_method.html',
+        #     context={
+        #         'nav_bar': 'kruskal',
+        #     }
+        # )
 
 
 class DFS_Method(View):

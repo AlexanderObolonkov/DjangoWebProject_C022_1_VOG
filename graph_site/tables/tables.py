@@ -11,10 +11,11 @@ class GraphTable(tables.Table):
         nodes = get_nodes(graph)
         # Получаем кол-во узлов, чтобы не получать много раз в цикле
         nodes_count = len(nodes)
-
+        self.base_columns["#"] = tables.Column(attrs={"th":{"class":"table-light text-center"}})
         for i in nodes:
             self.base_columns[f'{i}'] = tables.Column(attrs={"th":{"class":"table-light text-center"}})
             row = {}
+            row["#"] = i           
             for j in nodes:
                 if (i, j) in graph or (j,i) in graph:
                     row[j] = 1
@@ -26,7 +27,7 @@ class GraphTable(tables.Table):
 
     class Meta:
         attrs = {"class":"table table-bordered",
-                "align":"center"}
+                }
         row_attrs = {
                 "align":"center"
         }

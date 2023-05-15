@@ -1,0 +1,17 @@
+{% extends './base.html' %}
+
+{% load render_table from django_tables2 %}
+{% load static %}
+
+{% block title %}Обход в ширину{% endblock %}
+
+{% block page_content %}
+       <div class="main-content">
+
+        <section class="method_section">
+                {% render_table table %}
+        </section>
+
+    </div>
+{% endblock %}
+

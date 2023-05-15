@@ -1,6 +1,6 @@
 from os import getenv
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.core.mail import send_mail, BadHeaderError
@@ -11,6 +11,19 @@ from graph_site.services.app_services import input_to_edges
 
 from .tables.tables import GraphTable
 from pyvis.network import Network
+
+
+def result(graph, request, active):
+    table = GraphTable(graph)
+    return render(
+            request,
+            'graph_site/result.html',
+            context={
+                'nav_bar': active,
+                'table': table
+            }
+        )
+
 
 
 class MainView(View):
@@ -26,21 +39,20 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
-    table = GraphTable([(1, 2), (3, 1), (3, 4), (5, 4), (5, 1)])
-
     def get(self, request, *args, **kwargs):
         return render(
             request,
             'graph_site/bfs_method.html',
             context={
                 'nav_bar': 'bfs_method',
-                'table': self.table
             }
         )
 
-    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
-        table = GraphTable(graph)
-
+    def post(self, request, *args, **kwargs):
+        if request.POST['value'] == 'decide':
+            graph = input_to_edges(request.POST['input_graph'])
+            return result(graph, request, 'bfs_method')
+        return redirect('/bfs_method')
 
 class KruskalMethod(View):
     network = Network()
@@ -96,16 +108,4 @@ class Authors(View):
                 'nav_bar': 'authors'
             }
         )
-
-    class ResultView(View):
-        def get(self, request, *args, **kwargs):
-            table = GraphTable(context['graph'])
-            return render(
-                request,
-                'graph_site/result.html',
-                context={
-                    'nav_bar': 'authors',
-                    'table': table
-                }
-            )
 

@@ -4,5 +4,46 @@
 {% block title %}VOGRAPH{% endblock %}
 
 {% block page_content %}
-<p>Здесь будет о гениальных авторах сего сайта</p>
+<div class="main-content">
+    <h1 class="text-uppercase text-center">Авторы</h1>
+    <section>
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-lg-6 col-sm-12">
+                    <img src="{% static 'img/story.png' %}" alt="story">
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <h3>Александр Оболонков</h3>
+                    <p>Крутой чел</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-lg-6 col-sm-12">
+                    <img src="{% static 'img/story.png' %}" alt="story">
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <h3>Кирилл Гайкин</h3>
+                    <p>Тоже крутой чел</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-lg-6 col-sm-12">
+                    <img src="{% static 'img/story.png' %}" alt="story">
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <h3>Антон Веселов</h3>
+                    <p>Не знает, что здесь делает</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

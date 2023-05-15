@@ -63,20 +63,13 @@ a:hover {
 }
 /* Header */
 
-/* Carousel */
-.my-carousel .carousel-item {
-    display: flex;
-    max-height: 500px;
-}
-
-.my-carousel .carousel-item img {
-    object-fit: cover;
-}
-/* Carousel */
-
 /* Main content */
 .main-content h1 {
     padding: 20px 0px;
+}
+
+.graph-input {
+    padding: 10px;
 }
 /* Main content */
 
@@ -114,3 +107,9 @@ footer li a {
     width: 30px;
 }
 /* Footer */
+
+/*Algorithm page*/
+.method_section {
+    padding: 25px 0;
+}
+/*Algorithm page*/

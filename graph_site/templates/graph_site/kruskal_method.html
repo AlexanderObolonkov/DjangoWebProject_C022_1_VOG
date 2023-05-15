@@ -5,10 +5,41 @@
 
 {% block page_content %}
     <div class="main-content">
-
-        <section class="method_section">
-
-        </section>
-
+        <div class="container">
+            <section>
+                <div class="main-content">
+                    <div class="row align-items-start">
+                        <div class="col-lg-8 col-sm-12">
+                            Тут будет
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <section class="method_section">
+                                <h4>Ввод</h4>
+                                <label>
+                                    <textarea class="graph-input" name="input_graph" cols="10" rows="7"></textarea>
+                                </label>
+                                <div>
+                                    <button type="button" class="btn btn-outline-primary">
+                                        Решить
+                                    </button>
+                                </div>
+                            </section>
+                            <section class="method_section">
+                                <h4>Случайно</h4>
+                                <button type="button" class="btn btn-outline-primary">
+                                    Создать случайный граф
+                                </button>
+                            </section>
+                            <section class="method_section">
+                                <h4>Загрузить</h4>
+                                <button type="button" class="btn btn-outline-primary">
+                                    Загрузить граф
+                                </button>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 {% endblock %}

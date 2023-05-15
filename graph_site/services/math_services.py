@@ -95,7 +95,20 @@ def bfs_algoritm(graph: list[tuple[int,int]], start:int) -> list[tuple[int,int]]
                 ostov.append((prev, i)) # Добавляем в остовное дерево ребро
 
     return ostov
- 
+
+
+def search_next_node(value,visited,tree,graph):
+    for neighbour in list(get_neighbors(graph,value)):
+        if(neighbour not in visited):
+            visited.append(neighbour)
+            tree.append((value,neighbour))
+            search_next_node(neighbour,visited,tree,graph)
+
+def dfs_algorithm(graph, start_value):
+    visited=[1]
+    tree =[]
+    search_next_node(start_value,visited,tree,graph)
+    return tree 
 
 if __name__ == '__main__':
     """

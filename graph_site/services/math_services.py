@@ -105,7 +105,7 @@ def search_next_node(value,visited,tree,graph):
             search_next_node(neighbour,visited,tree,graph)
 
 def dfs_algorithm(graph, start_value):
-    visited=[1]
+    visited=[start_value]
     tree =[]
     search_next_node(start_value,visited,tree,graph)
     return tree 

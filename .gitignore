@@ -14,3 +14,4 @@ db.json
 PractEnv/
 .venv/
 pvis_graph_file.html
+*.swp

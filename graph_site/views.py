@@ -7,7 +7,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django_tables2 import SingleTableView
 
 from BottleWebProject_C022_1_ВОГ import settings
-from graph_site.services.app_services import input_to_edges, generate_graph
+from graph_site.services.app_services import input_to_edges, generate_graph, graph_to_input
 from graph_site.services.math_services import get_nodes 
 from .tables.tables import GraphTable
 from pyvis.network import Network
@@ -46,6 +46,7 @@ class BFS_Method(SingleTableView):
             'graph_site/bfs_method.html',
             context={
                 'nav_bar': 'bfs_method',
+                'graph_str': graph_to_input(request.session['graph'])
             }
         )
 
@@ -53,7 +54,7 @@ class BFS_Method(SingleTableView):
         if request.POST['value'] == 'decide':
             graph = input_to_edges(request.POST['input_graph'])
             request.session['graph'] = graph
-            return result(graph, request, 'bfs_method')
+            return result(request, 'bfs_method')
         elif request.POST['value'] == 'visualize':
             graph = input_to_edges(request.POST['input_graph'])
             self.network = Network()
@@ -61,6 +62,8 @@ class BFS_Method(SingleTableView):
             self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
             self.network.add_edges(graph)
             self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+            print(graph)
+            request.session['graph'] = graph
             return redirect('/bfs_method')
         elif reqeust.POST['value'] == 'generate':
             self.network = Network()

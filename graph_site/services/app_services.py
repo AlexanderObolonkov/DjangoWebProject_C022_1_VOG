@@ -5,6 +5,11 @@ def input_to_edges(text: str) -> list[tuple[int]]:
     graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
     return graph
 
+def graph_to_input(graph: list[tuple[int]]) -> str:
+    graph = [map(str, i) for i in graph]
+    return "\n".join([" ".join(i) for i in graph])
+
+
 def generate_edge_weights(graph:list[tuple[int]])->None:
     """Функция для генерации весов ребер для алгоритма Краскала"""
     for i in range(len(graph)):

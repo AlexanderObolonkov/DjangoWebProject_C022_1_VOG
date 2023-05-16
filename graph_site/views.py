@@ -8,12 +8,13 @@ from django_tables2 import SingleTableView
 
 from BottleWebProject_C022_1_ВОГ import settings
 from graph_site.services.app_services import input_to_edges, generate_graph
-
+from graph_site.services.math_services import get_nodes 
 from .tables.tables import GraphTable
 from pyvis.network import Network
 
 
-def result(graph, request, active):
+def result(request, active):
+    graph = request.session['graph']
     table = GraphTable(graph)
     return render(
             request,
@@ -51,8 +52,17 @@ class BFS_Method(SingleTableView):
     def post(self, request, *args, **kwargs):
         if request.POST['value'] == 'decide':
             graph = input_to_edges(request.POST['input_graph'])
+            request.session['graph'] = graph
             return result(graph, request, 'bfs_method')
-        else:
+        elif request.POST['value'] == 'visualize':
+            graph = input_to_edges(request.POST['input_graph'])
+            self.network = Network()
+            nodes = get_nodes(graph)
+            self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
+            self.network.add_edges(graph)
+            self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+            return redirect('/bfs_method')
+        elif reqeust.POST['value'] == 'generate':
             self.network = Network()
             nodes = [1, 2, 3, 4]
             self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
@@ -62,6 +72,8 @@ class BFS_Method(SingleTableView):
             # network.add_edge(1, 2, value=10, title='10')
             self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
             return redirect('bfs_method')
+        elif request.POST['value'] == 'load':
+            pass
         return redirect('/bfs_method')
 
 class KruskalMethod(View):

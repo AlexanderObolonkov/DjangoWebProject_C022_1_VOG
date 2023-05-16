@@ -108,8 +108,12 @@ footer li a {
 }
 /* Footer */
 
-/*Algorithm page*/
+/* Algorithm page */
 .method_section {
-    padding: 25px 0;
+    padding: 55px 10px;
+}
+
+.method_group {
+    padding: 30px 10px;
 }
 /*Algorithm page*/

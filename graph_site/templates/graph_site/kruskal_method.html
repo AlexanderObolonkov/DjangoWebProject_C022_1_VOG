@@ -4,49 +4,61 @@
 {% block title %}Метод Краскала{% endblock %}
 
 {% block page_content %}
-    <div class="main-content">
-        <div class="container">
-            <section>
-                <div class="main-content">
-                    <div class="row align-items-start">
-                        <div class="col-lg-8 col-sm-12">
-                            {% include './pvis_graph_file.html' %}
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            <section class="method_section">
-                                <div>
-                                    <form method="post" action="{% url 'kruskal' %}">
-                                        {% csrf_token %}
+    <div class="container">
+
+        <section>
+            <div class="main-content">
+                <div class="row align-items-start">
+                    <div class="col-lg-8 col-sm-12">
+                        {% include './pvis_graph_file.html' %}
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <section class="method_section">
+                            <div>
+                                <form method="post" action="{% url 'kruskal' %}">
+                                    {% csrf_token %}
+                                    <div class="method_group">
                                         <h4>Ввод</h4>
                                         <label>
                                             <textarea class="graph-input" name="input_graph" cols="10"
                                                       rows="7"></textarea>
                                         </label>
-                                        <button name="value" value="visualize" type="submit" class="btn btn-outline-primary">
-                                            Визуализировать
+                                        <div>
+                                            <button name="value" value="visualize" type="submit"
+                                                    class="btn btn-outline-primary">
+                                                Визуализировать
+                                            </button>
+                                            <button name="value" value="decide" type="submit"
+                                                    class="btn btn-outline-primary">
+                                                Решить
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="method_group">
+                                        <h4>Случайно</h4>
+                                        <button type="button" class="btn btn-outline-primary">
+                                            Создать случайный граф
                                         </button>
-                                        <button name="value" value="decide" type="submit" class="btn btn-outline-primary">
-                                            Решить
+                                    </div>
+                                    <div class="method_group">
+                                        <h4>Загрузить</h4>
+                                        <button type="button" class="btn btn-outline-primary">
+                                            Загрузить граф
                                         </button>
-                                    </form>
-                                </div>
-                            </section>
-                            <section class="method_section">
-                                <h4>Случайно</h4>
-                                <button type="button" class="btn btn-outline-primary">
-                                    Создать случайный граф
-                                </button>
-                            </section>
-                            <section class="method_section">
-                                <h4>Загрузить</h4>
-                                <button type="button" class="btn btn-outline-primary">
-                                    Загрузить граф
-                                </button>
-                            </section>
-                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="about-method">
+                <h1 class="text-uppercase text-center">О методе</h1>
+            </div>
+        </section>
+
     </div>
 {% endblock %}

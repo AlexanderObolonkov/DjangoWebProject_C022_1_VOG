@@ -5,11 +5,10 @@ def get_neighbors(graph, v):
     for i in graph:
         if v in i:
             yield i[0] if i[0] != v else i[1]
- 
 
-def get_nodes(graph:list[int,int]):
+
+def get_nodes(graph: list[int, int]):
     return sorted(list(set([j for i in graph for j in i])))
-
 
 
 def kruskal_algorithm(graph: list[tuple[int, int, int]]) -> list[tuple[int, int, int]]:
@@ -65,50 +64,52 @@ def kruskal_algorithm2(graph: list[tuple[int, int, int]]) -> list[tuple[int, int
                     isolated_groups[r[1]] = isolated_groups[r[0]]
 
             skeleton.append(r)  # добавляем ребро в остов
-            connected_vertices.add(r[0])  # добавляем вершины в множество U
+            connected_vertices.add(r[0])  # добавляем вершины в множество соединенных вершин
             connected_vertices.add(r[1])
 
     for r in sorted_graph:  # проходим по ребрам второй раз и объединяем разрозненные группы вершин
         if r[1] not in isolated_groups[r[0]]:  # если вершины принадлежат разным группам, то объединяем
             skeleton.append(r)  # добавляем ребро в остов
-            gr1 = isolated_groups[r[0]]
+            group = isolated_groups[r[0]]
             isolated_groups[r[0]] += isolated_groups[r[1]]  # объединим списки двух групп вершин
-            isolated_groups[r[1]] += gr1
+            isolated_groups[r[1]] += group
 
     return skeleton
 
 
-def bfs_algoritm(graph: list[tuple[int,int]], start:int) -> list[tuple[int,int]]:
-    queue = deque() # Очередь, в которую заполняются соседи текущего узла
-    queue.append(start) # Добавляем начальный узел в очередь
-    was = {start} # Посещенные узлы
-    ostov = [] # Итоговое остовное дерево
-    prev = start # Предыдущий узел
+def bfs_algoritm(graph: list[tuple[int, int]], start: int) -> list[tuple[int, int]]:
+    queue = deque()  # Очередь, в которую заполняются соседи текущего узла
+    queue.append(start)  # Добавляем начальный узел в очередь
+    was = {start}  # Посещенные узлы
+    ostov = []  # Итоговое остовное дерево
+    prev = start  # Предыдущий узел
 
     while queue:
-        prev = queue.popleft() # Удаляем из очереди текущий узел
+        prev = queue.popleft()  # Удаляем из очереди текущий узел
         # Получаем соседей узла, добавляем их в очередь и добавляем узел в посещенные
         for i in get_neighbors(graph, prev):
-            if(i not in was):
+            if i not in was:
                 queue.append(i)
                 was.add(i)
-                ostov.append((prev, i)) # Добавляем в остовное дерево ребро
+                ostov.append((prev, i))  # Добавляем в остовное дерево ребро
 
     return ostov
 
 
-def search_next_node(value,visited,tree,graph):
-    for neighbour in list(get_neighbors(graph,value)):
-        if(neighbour not in visited):
+def search_next_node(value, visited, tree, graph):
+    for neighbour in list(get_neighbors(graph, value)):
+        if neighbour not in visited:
             visited.append(neighbour)
-            tree.append((value,neighbour))
-            search_next_node(neighbour,visited,tree,graph)
+            tree.append((value, neighbour))
+            search_next_node(neighbour, visited, tree, graph)
+
 
 def dfs_algorithm(graph, start_value):
-    visited=[1]
-    tree =[]
-    search_next_node(start_value,visited,tree,graph)
-    return tree 
+    visited = [start_value]
+    tree = []
+    search_next_node(start_value, visited, tree, graph)
+    return tree
+
 
 if __name__ == '__main__':
     """

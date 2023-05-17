@@ -2,13 +2,15 @@ from collections import deque
 
 
 def get_neighbors(graph, v):
+    """Функция возвращает список соседей для заданного узла"""
     for i in graph:
         if v in i:
             yield i[0] if i[0] != v else i[1]
 
 
 def get_nodes(graph: list[int, int]):
-    return sorted(list(set([j for i in graph for j in i])))
+    """Функция возращает список узлов графа из списка ребер графа"""
+    return sorted(list(set([i[j] for i in graph for j in range(2)])))
 
 
 def kruskal_algorithm(graph: list[tuple[int, int, int]]) -> list[tuple[int, int, int]]:

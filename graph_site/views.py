@@ -41,12 +41,16 @@ class MainView(View):
 
 class BFS_Method(SingleTableView):
     def get(self, request, *args, **kwargs):
+        try:
+            graph = graph_to_input(request.session['graph'])
+        except:
+            graph = []
         return render(
             request,
             'graph_site/bfs_method.html',
             context={
                 'nav_bar': 'bfs_method',
-                'graph_str': graph_to_input(request.session['graph'])
+                'graph_str': graph
             }
         )
 
@@ -58,9 +62,11 @@ class BFS_Method(SingleTableView):
         elif request.POST['value'] == 'visualize':
             graph = input_to_edges(request.POST['input_graph'])
             self.network = Network()
-            nodes = get_nodes(graph)
-            self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
-            self.network.add_edges(graph)
+            print(graph)
+            if(graph != [()]):
+                nodes = get_nodes(graph)
+                self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
+                self.network.add_edges(graph)
             self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
             print(graph)
             request.session['graph'] = graph

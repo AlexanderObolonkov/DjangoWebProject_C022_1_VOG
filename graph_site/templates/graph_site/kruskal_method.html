@@ -5,8 +5,8 @@
 
 {% block page_content %}
     <div class="container">
-
         <section>
+            <h1 class="text-uppercase text-center">Алгоритм Краскала</h1>
             <div class="main-content">
                 <div class="row align-items-start">
                     <div class="col-lg-8 col-sm-12">
@@ -15,7 +15,7 @@
                     <div class="col-lg-4 col-sm-12">
                         <section class="method_section">
                             <div>
-                                <form method="post" action="{% url 'kruskal' %}">
+                                <form method="post" action="{% url 'kruskal' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="method_group">
                                         <h4>Ввод</h4>
@@ -36,13 +36,14 @@
                                     </div>
                                     <div class="method_group">
                                         <h4>Случайно</h4>
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <button type="submit" class="btn btn-outline-primary">
                                             Создать случайный граф
                                         </button>
                                     </div>
                                     <div class="method_group">
                                         <h4>Загрузить</h4>
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <input type="file" name="file_path"/>
+                                        <button type="submit" name="value" value="load" class="btn btn-outline-primary">
                                             Загрузить граф
                                         </button>
                                     </div>
@@ -54,9 +55,41 @@
             </div>
         </section>
 
-        <section>
-            <div class="about-method">
+        <section class="story-content">
+            <div class="container">
                 <h1 class="text-uppercase text-center">О методе</h1>
+                <div class="row method_group">
+                    <div class="col-lg-4 col-sm-12">
+                        <img class="kruskal_img" src="{% static 'img/kruskal1.png' %}" alt="story">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <img class="kruskal_img" src="{% static 'img/kruskal2.png' %}" alt="story">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <img class="kruskal_img" src="{% static 'img/kruskal3.png' %}" alt="story">
+                    </div>
+                </div>
+                <div class="text-left method_group">
+                    <p>
+                        Дан неориентированный взвешенный связный граф. Необходимо выбрать в нем подграф,
+                        являющийся деревом, содержащий все вершины графа, имеющий минимальную сумму всех ребер,
+                        то есть минимальное остовное дерево. Интерпретировать эту задачу можно так: есть
+                        некоторое количество городов, между которыми можно проложить дороги различной стоимости
+                        (протяженности). Необходимо выбрать набор дорог, соединяющий все города, минимальной
+                        суммарной стоимости.
+                    </p>
+                    <p>
+                        В алгоритме Краскала весь единый список ребер упорядочивается по неубыванию весов ребра.
+                        Далее ребра перебираются от ребер с меньшим весом к большему, и очередное ребро
+                        добавляется к каркасу, если оно не образовывает цикла с ранее выбранными ребрами,
+                        образуя изолированную группы (для проверки того, что выбранные ребра не образовывает
+                        цикл, будем представлять граф, как несколько изолированных групп вершин).
+                    </p>
+                    <p>
+                        Затем соединяем группы вершин через ещё несоединенные рёбра с минимальным весом.
+                        Результат - остовное дерево данного графа минимальной длины.
+                    </p>
+                </div>
             </div>
         </section>
 

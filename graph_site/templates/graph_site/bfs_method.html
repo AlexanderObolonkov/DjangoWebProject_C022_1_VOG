@@ -1,52 +1,43 @@
-{% extends './base.html' %}
+{% extends './method.html' %}
+
 {% load static %}
 
-{% block title %}Обход в ширину{% endblock %}
-
-{% block page_content %}
-    <div class="main-content">
-        <div class="container">
-            <section>
-                <div class="main-content">
-                    <div class="row align-items-start">
-                        <div class="col-lg-8 col-sm-12">
-                            {% include './pvis_graph_file.html' %}
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            <section class="method_section">
-                                <div>
-                                    <form method="post" action="{% url 'bfs_method' %}">
-                                        {% csrf_token %}
-                                        <h4>Ввод</h4>
-                                        <label>
-                                            <textarea class="graph-input" name="input_graph" cols="10"
-						rows="7">{{graph_str}}</textarea>
-                                        </label>
-                                        <button name="value" value="visualize" type="submit" class="btn btn-outline-primary">
-                                            Визуализировать
-                                        </button>
-                                        <button name="value" value="decide" type="submit" class="btn btn-outline-primary">
-                                            Решить
-                                        </button>
-                                    </form>
-                                </div>
-                            </section>
-                            <section class="method_section">
-                                <h4>Случайно</h4>
-                                <button type="button" class="btn btn-outline-primary">
-                                    Создать случайный граф
-                                </button>
-                            </section>
-                            <section class="method_section">
-                                <h4>Загрузить</h4>
-                                <button type="button" class="btn btn-outline-primary">
-                                    Загрузить граф
-                                </button>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+{% block method_title %}Метод обхода в ширину{% endblock %}
+{% block method_url %}{% url 'bfs_method' %}{% endblock %}
+{% block about_method %}
+    <h1 class="text-uppercase text-center">О методе обхода в ширину</h1>
+    <div class="text-left method_group">
+	<p>
+	<b>Остовное дерево</b> - ациклический связный подграф данного связного неориентированного графа, в который входят все его вершины.
+	</p>
+        <p>
+	Алгоритм:
+	<ol>
+		<li>Добавим в очередь начальный узел</li>
+		<li>Возьмем первый узел из очереди</li>
+		<li>Пометим его пройденным</li>
+		<li>Добавим в очередь всех его непомеченных соседей</li>
+		<li>Соединим текущих соседей с предыдущим узлом последовательно</li>
+		<li>Повторить пункты 2-5 пока очередь не окажется пуста</li>
+	</ol>
+       </p>
+       <p>Пример работы алгоритма:</p>
+	<p>Возьмем граф из 5 узлов</p>
+	<p>Тогда работа алгоритма выглядит так</p>
+	<ol>
+		<li>Назначаем первым узел 1</li>
+		<li>Берем соседи узла 1: 2, 5</li>
+		<li>Добавляем их в очередь, соединяем ребрами с узлом 1, удаляем из очереди узел 1</li>
+		<li>Берем соседей узла 2: 4, 3</li>
+		<li>Добавляем их в очередь, соединяем ребрами с узлом 2</li>
+		<li>Удаляем из очереди 2.</li>
+		<li>У остальных узлов все соседи уже помеченные, потому их в очередь не добавляем. Очередь пуста</li>
+	</ol>
     </div>
+
+    <div class="row method_group">
+         <img class="bfs_img" src="{% static 'img/bfs_method.svg' %}" alt="story">
+    </div>
+
 {% endblock %}
+

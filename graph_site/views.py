@@ -99,14 +99,18 @@ class BFS_Method(SingleTableView):
 
 class KruskalMethod(View):
     network = Network()
-
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода Краскала"""
+        try:
+            graph = graph_to_input(request.session['graph'])
+        except:
+            graph = []
         return render(
             request,
             'graph_site/kruskal_method.html',
             context={
-                'nav_bar': 'kruskal'
+                'nav_bar': 'kruskal',
+                'graph': graph
             }
         )
 
@@ -137,11 +141,16 @@ class KruskalMethod(View):
 
 class DFS_Method(View):
     def get(self, request, *args, **kwargs):
+        try:
+            graph = graph_to_input(request.session['graph'])
+        except:
+            graph = []
         return render(
             request,
             'graph_site/dfs.html',
             context={
-                'nav_bar': 'dfs'
+                'nav_bar': 'dfs',
+                'graph': graph
             }
         )
 

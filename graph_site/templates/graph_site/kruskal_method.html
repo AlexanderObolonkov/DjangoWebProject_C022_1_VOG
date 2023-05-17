@@ -15,7 +15,7 @@
                     <div class="col-lg-4 col-sm-12">
                         <section class="method_section">
                             <div>
-                                <form method="post" action="{% url 'kruskal' %}">
+                                <form method="post" action="{% url 'kruskal' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="method_group">
                                         <h4>Ввод</h4>
@@ -36,13 +36,14 @@
                                     </div>
                                     <div class="method_group">
                                         <h4>Случайно</h4>
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <button type="submit" class="btn btn-outline-primary">
                                             Создать случайный граф
                                         </button>
                                     </div>
                                     <div class="method_group">
                                         <h4>Загрузить</h4>
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <input type="file" name="file_path"/>
+                                        <button type="submit" name="value" value="load" class="btn btn-outline-primary">
                                             Загрузить граф
                                         </button>
                                     </div>

@@ -45,7 +45,10 @@ def load_csv(file_string:str)->list[tuple[int]]:
     io_string = io.StringIO(file_string)
     l=list()
     for row in csv.reader(io_string):
-        l.append(tuple([int(i) for i in row]))
+        try:
+            l.append(tuple([int(i) for i in row]))
+        except:
+            return [()]
     return l
 
 if __name__ == '__main__':

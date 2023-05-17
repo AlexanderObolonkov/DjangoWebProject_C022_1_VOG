@@ -30,12 +30,13 @@ def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:
     network=Network()
     file=request.FILES['file_path'].read()
     graph=load_csv(file)
-    nodes=get_nodes(graph)
-    network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
-    network.add_edges(graph)
-    for d in network.get_edges():
-        d['title'] = d['width']
-    network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+    if graph!=[()]:
+        nodes=get_nodes(graph)
+        network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
+        network.add_edges(graph)
+        for d in network.get_edges():
+            d['title'] = d['width']
+        network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
     return redirect(url)
 
 class MainView(View):
@@ -93,7 +94,7 @@ class BFS_Method(SingleTableView):
             self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
             return redirect('bfs_method')
         elif request.POST['value'] == 'load':
-            pass
+            return csv_post_load(request,'bfs_method')
         return redirect('/bfs_method')
 
 class KruskalMethod(View):

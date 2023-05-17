@@ -1,11 +1,14 @@
 from random import randint
 from graph_site.services.math_services import get_neighbors
+import csv
 
 def input_to_edges(text: str) -> list[tuple[int]]:
+    """Функция для конвертации ввода пользователя к списку кортежей"""
     graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
     return graph
 
 def graph_to_input(graph: list[tuple[int]]) -> str:
+    """Функция для конвертации списка кортежей в пользовательский ввод"""
     graph = [map(str, i) for i in graph]
     return "\n".join([" ".join(i) for i in graph])
 
@@ -36,6 +39,14 @@ def generate_graph(max_value:int,is_kruskal=False) -> list[tuple[int]]:
     if is_kruskal:
         generate_edge_weights(graph)
     return graph
+def load_csv(file_path:str)->list[tuple[int]]:
+    """Функция для загрузки выбранного файла"""
+    l=list()
+    with open(file_path) as csv_file:
+        reader=csv.reader(csv_file)
+        for row in reader:
+            l.append(tuple([int(i) for i in row]))
+    return l
 
 if __name__ == '__main__':
     print(input_to_edges('1 2\n'

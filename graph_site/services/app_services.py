@@ -107,7 +107,7 @@ def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:
     request.session['graph'] = graph
     return visualize(graph,url)
 
-def post_answer(request:HttpRequest,url:str)->HttpResponse:
+def post_answer(request:HttpRequest,url:str):
     """Функция корректного ответа на POST-запрос"""
     if request.POST['value'] == 'decide':
         graph = input_to_edges(request.POST['input_graph'])

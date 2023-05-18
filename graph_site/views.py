@@ -3,14 +3,11 @@ from os import getenv
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
-from django.core.mail import send_mail, BadHeaderError
 from django_tables2 import SingleTableView
 
 from BottleWebProject_C022_1_ВОГ import settings
 from graph_site.services.app_services import *
 from graph_site.services.math_services import get_nodes 
-from .tables.tables import GraphTable
-from pyvis.network import Network
 
 import re
     
@@ -46,7 +43,7 @@ class BFS_Method(SingleTableView):
         return post_answer(request,'bfs_method')
 
 class KruskalMethod(View):
-    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    def get(self, request: HttpRequest, *args, **kwargs):
         """GET-запрос для страницы метода Краскала"""
         try:
             graph = graph_to_input(request.session['graph'])
@@ -57,11 +54,11 @@ class KruskalMethod(View):
             'graph_site/kruskal_method.html',
             context={
                 'nav_bar': 'kruskal',
-                'graph': graph
+                'graph_str': graph
             }
         )
 
-    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
         return post_answer(request,'kruskal')
 
@@ -77,10 +74,10 @@ class DFS_Method(View):
             'graph_site/dfs.html',
             context={
                 'nav_bar': 'dfs',
-                'graph': graph
+                'graph_str': graph
             }
         )
-    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
         return post_answer(request,'dfs_method')
 

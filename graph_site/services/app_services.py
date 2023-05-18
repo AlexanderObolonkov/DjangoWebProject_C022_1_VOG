@@ -1,11 +1,27 @@
 from random import randint
 from graph_site.services.math_services import get_neighbors
 import csv,io
+import re
 
 def input_to_edges(text: str) -> list[tuple[int]]:
     """Функция для конвертации ввода пользователя к списку кортежей"""
-    graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
-    return graph
+    check_str = " ".join([i.strip() for i in text.split()])
+    check_str += " "
+    if(len(text.split("\r\n")[0].split()) == 2):
+        if(re.fullmatch(r"(\d+ \d+ )+", check_str)):
+            graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
+            return graph
+        else:
+            print(repr(check_str))
+            return [()]
+    else:
+        if(re.fullmatch(r"(\d+ \d+ \d+ )+", check_str)):
+            graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
+            return graph
+        else:
+            print(repr(check_str))
+            return [()]
+
 
 def graph_to_input(graph: list[tuple[int]]) -> str:
     """Функция для конвертации списка кортежей в пользовательский ввод"""

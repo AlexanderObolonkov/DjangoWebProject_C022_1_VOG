@@ -12,6 +12,7 @@ from graph_site.services.math_services import get_nodes
 from .tables.tables import GraphTable
 from pyvis.network import Network
 
+import re
 
 def result(request, active):
     graph = request.session['graph']
@@ -52,6 +53,7 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
+    pattern = r"(\d+ \d+\n?)+"
     def get(self, request, *args, **kwargs):
         try:
             graph = graph_to_input(request.session['graph'])
@@ -74,13 +76,11 @@ class BFS_Method(SingleTableView):
         elif request.POST['value'] == 'visualize':
             graph = input_to_edges(request.POST['input_graph'])
             self.network = Network()
-            print(graph)
             if(graph != [()]):
                 nodes = get_nodes(graph)
                 self.network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
                 self.network.add_edges(graph)
             self.network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
-            print(graph)
             request.session['graph'] = graph
             return redirect('/bfs_method')
         elif reqeust.POST['value'] == 'generate':
@@ -95,7 +95,7 @@ class BFS_Method(SingleTableView):
             return redirect('bfs_method')
         elif request.POST['value'] == 'load':
             return csv_post_load(request,'bfs_method')
-        return redirect('/bfs_method')
+        #return redirect('/bfs_method')
 
 class KruskalMethod(View):
     network = Network()

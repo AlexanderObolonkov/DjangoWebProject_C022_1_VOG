@@ -25,6 +25,7 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
+    file_error = None
     def get(self, request, *args, **kwargs):
         try:
             graph = graph_to_input(request.session['graph'])
@@ -35,12 +36,20 @@ class BFS_Method(SingleTableView):
             'graph_site/bfs_method.html',
             context={
                 'nav_bar': 'bfs_method',
-                'graph_str': graph
+                'graph_str': graph,
+                'file_error':self.file_error
             }
         )
 
     def post(self, request, *args, **kwargs):
-        return post_answer(request,'bfs_method')
+        try:
+            self.file_error = None
+            return post_answer(request,'bfs_method')
+        except ValueError:
+            self.file_error = 1
+            return redirect('bfs_method')
+
+            
 
 class KruskalMethod(View):
     def get(self, request: HttpRequest, *args, **kwargs):
@@ -60,7 +69,12 @@ class KruskalMethod(View):
 
     def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
-        return post_answer(request,'kruskal')
+        try:
+            self.file_error = None
+            return post_answer(request,'kruskal')
+        except ValueError:
+            self.file_error = 1
+            return redirect('kruskal')
 
 
 class DFS_Method(View):
@@ -79,7 +93,12 @@ class DFS_Method(View):
         )
     def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
-        return post_answer(request,'dfs_method')
+        try:
+            self.file_error = None
+            return post_answer(request,'dfs_method')
+        except ValueError:
+            self.file_error = 1
+            return redirect('dfs_method')
 
 
 class Authors(View):

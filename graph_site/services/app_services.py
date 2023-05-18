@@ -114,7 +114,10 @@ def post_answer(request:HttpRequest,url:str):
         request.session['graph'] = graph
         return result(request, url)
     elif request.POST['value'] == 'visualize':
-        graph = input_to_edges(request.POST['input_graph'])
+        # Из-за ассинхронной работы request.POST['input_graph'] его нужно
+        # обернуть в переменную, чтобы точно передался новый результат
+        s=request.POST['input_graph']
+        graph = input_to_edges(s)
         request.session['graph'] = graph
         return visualize(graph,url)
     elif request.POST['value'] == 'generate':

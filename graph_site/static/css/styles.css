@@ -116,4 +116,8 @@ footer li a {
 .method_group {
     padding: 30px 0;
 }
+
+.method_p {
+    padding: 0;
+}
 /*Algorithm page*/

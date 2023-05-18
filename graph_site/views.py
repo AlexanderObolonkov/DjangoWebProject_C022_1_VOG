@@ -13,21 +13,7 @@ from .tables.tables import GraphTable
 from pyvis.network import Network
 
 import re
-
-
-
-def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:
-    network=Network()
-    file=request.FILES['file_path'].read()
-    graph=load_csv(file)
-    if graph!=[()]:
-        nodes=get_nodes(graph)
-        network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
-        network.add_edges(graph)
-        for d in network.get_edges():
-            d['title'] = d['width']
-        network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
-    return redirect(url)
+    
 
 class MainView(View):
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:

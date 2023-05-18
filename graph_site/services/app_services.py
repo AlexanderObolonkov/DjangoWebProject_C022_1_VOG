@@ -1,10 +1,12 @@
 from random import randint
-from graph_site.services.math_services import get_neighbors
+from graph_site.services.math_services import get_neighbors,get_nodes
 import csv,io
 import re
 from graph_site.tables.tables import GraphTable
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect
+from pyvis.network import Network
+
 
 def input_to_edges(text: str) -> list[tuple[int]]:
     """Функция для конвертации ввода пользователя к списку кортежей"""
@@ -59,7 +61,7 @@ def generate_graph(max_value:int,is_kruskal=False) -> list[tuple[int]]:
         generate_edge_weights(graph)
     return graph
 def load_csv(file_string:str)->list[tuple[int]]:
-    """Функция для загрузки выбранного файла"""
+    """Функция для парсинга выбранного файла"""
     file_string=bytes.decode(file_string,"utf-8")
     io_string = io.StringIO(file_string)
     l=list()
@@ -83,6 +85,23 @@ def result(request, active):
             }
         )
 
+def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
+    """Функция визуализации графика"""
+    network=Network()
+    if graph!=[()]:
+        nodes=get_nodes(graph)
+        network.add_nodes(nodes=nodes, label=[str(i) for i in nodes])
+        network.add_edges(graph)
+        for d in network.get_edges():
+            d['title'] = d['width']
+        network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+    return redirect(url)
+
+def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:
+    """Функция загрузки и визуализации файла"""
+    file=request.FILES['file_path'].read()
+    graph=load_csv(file)
+    return visualize(graph,url)
 
 if __name__ == '__main__':
     print(input_to_edges('1 2\n'

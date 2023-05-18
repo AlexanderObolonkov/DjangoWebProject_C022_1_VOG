@@ -6,6 +6,23 @@
 
 {% block method_url %}{% url 'dfs_method' %}{% endblock %}
 
+{% block method_input_tip %}
+    <p>
+        Ввод графа осуществляется таким образом:<br>
+        n1 n2<br>
+        n2 n3<br>
+        ...<br>
+        где n — вершина графа
+    </p>
+    <p>
+        Файл загружается в формате csv следующего формата:<br>
+        n1,n2<br>
+        n2,n3<br>
+        ...<br>
+        где n — вершина графа
+    </p>
+{% endblock %}
+
 {% block about_method %}
     <h1 class="text-uppercase text-center">О методе обхода в глубину</h1>
     <div class="text-left method_group">

@@ -7,21 +7,26 @@
     <div class="container">
         <section>
             <h1 class="text-uppercase text-center">{% block method_title %}{% endblock %}</h1>
+            <h5 class="text-center">(<a href="#theory">теоретический материал</a>)</h5>
             <div class="main-content">
                 <div class="row align-items-start">
                     <div class="col-lg-8 col-sm-12">
                         {% include './pvis_graph_file.html' %}
                     </div>
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-2 col-sm-12">
                         <section class="method_section">
                             <div>
-                                <form method="post" enctype="multipart/form-data" action="{% block method_url %}{% endblock %}">
+                                <form method="post" enctype="multipart/form-data"
+                                      action="{% block method_url %}{% endblock %}">
                                     {% csrf_token %}
                                     <div class="method_group">
                                         <h4>Ввод</h4>
+                                        <div class="alert alert-danger">
+                                            <strong>Ошибка ввода</strong>
+                                        </div>
                                         <label>
                                             <textarea class="graph-input" name="input_graph" cols="10"
-						rows="7">{{graph_str}}</textarea>
+                                                      rows="7">{{ graph_str }}</textarea>
                                         </label>
                                         <div>
                                             <button name="value" value="visualize" type="submit"
@@ -36,12 +41,16 @@
                                     </div>
                                     <div class="method_group">
                                         <h4>Случайно</h4>
-                                        <button type="submit" name="value" value="generate" class="btn btn-outline-primary">
+                                        <button type="submit" name="value" value="generate"
+                                                class="btn btn-outline-primary">
                                             Создать случайный граф
                                         </button>
                                     </div>
                                     <div class="method_group">
                                         <h4>Загрузить</h4>
+                                        <div class="alert alert-danger">
+                                            <strong>Ошибка файла</strong>
+                                        </div>
                                         <input type="file" name="file_path"/>
                                         <button type="submit" name="value" value="load" class="btn btn-outline-primary">
                                             Загрузить граф
@@ -51,11 +60,22 @@
                             </div>
                         </section>
                     </div>
+                    <div class="col-lg-2 col-sm-12">
+                        <div class="container">
+                            <section>
+                                <div class="method_group">
+                                    <div class="mt-5">
+                                        {% block method_input_tip %}{% endblock %}
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="story-content">
+        <section class="story-content" id="theory">
             <div class="container">
                 {% block about_method %}{% endblock %}
             </div>

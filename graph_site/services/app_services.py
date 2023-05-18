@@ -13,14 +13,14 @@ def input_to_edges(text: str) -> list[tuple[int]]:
             return graph
         else:
             print(repr(check_str))
-            return [()]
+            raise ValueError
     else:
         if(re.fullmatch(r"(\d+ \d+ \d+ )+", check_str)):
             graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
             return graph
         else:
             print(repr(check_str))
-            return [()]
+            raise ValueError
 
 
 def graph_to_input(graph: list[tuple[int]]) -> str:

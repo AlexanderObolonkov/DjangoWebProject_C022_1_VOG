@@ -21,9 +21,11 @@
                                     {% csrf_token %}
                                     <div class="method_group">
                                         <h4>Ввод</h4>
-                                        <div class="alert alert-danger">
-                                            <strong>Ошибка ввода</strong>
-                                        </div>
+                                        {% if input_error %}
+                                            <div class="alert alert-danger">
+                                                <strong>Ошибка ввода</strong>
+                                            </div>
+                                        {% endif %}
                                         <label>
                                             <textarea class="graph-input" name="input_graph" cols="10"
                                                       rows="7">{{ graph_str }}</textarea>

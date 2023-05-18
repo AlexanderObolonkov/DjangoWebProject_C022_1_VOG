@@ -25,6 +25,7 @@ class MainView(View):
 
 
 class BFS_Method(SingleTableView):
+    input_error = None
     file_error = None
     def get(self, request, *args, **kwargs):
         try:
@@ -37,16 +38,16 @@ class BFS_Method(SingleTableView):
             context={
                 'nav_bar': 'bfs_method',
                 'graph_str': graph,
-                'file_error':self.file_error
+                'input_error': request.session.get('input_error', False),
+                'file_error': self.file_error
             }
         )
 
     def post(self, request, *args, **kwargs):
         try:
-            self.file_error = None
             return post_answer(request,'bfs_method')
         except ValueError:
-            self.file_error = 1
+            request.session['input_error'] = True
             return redirect('bfs_method')
 
             

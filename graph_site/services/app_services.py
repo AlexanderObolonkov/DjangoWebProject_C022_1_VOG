@@ -72,7 +72,7 @@ def load_csv(file_string:str)->list[tuple[int]]:
         try:
             l.append(tuple([int(i) for i in row]))
         except:
-            return [()]
+            raise IOError
     return l
 
 def result(request, active):
@@ -103,13 +103,6 @@ def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
     sleep(1)
     return redirect(url)
 
-def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:
-    """Функция загрузки и визуализации файла"""
-    file=request.FILES['file_path'].read()
-    graph=load_csv(file)
-    request.session['graph'] = graph
-    return visualize(graph,url)
-
 def post_answer(request:HttpRequest,url:str):
     """Функция корректного ответа на POST-запрос"""
     if request.POST['value'] == 'decide':
@@ -124,14 +117,11 @@ def post_answer(request:HttpRequest,url:str):
         request.session['graph'] = graph
         return visualize(graph,url)
     elif request.POST['value'] == 'generate':
-        graph=generate_graph()
+        graph=generate_graph(url=='kruskal')
         request.session['graph'] = graph
         return visualize(graph,url)
     elif request.POST['value'] == 'load':
-        return csv_post_load(request,url)
-
-if __name__ == '__main__':
-    print(input_to_edges('1 2\n'
-                         '3 4\n'
-                         '5 6\n'
-                         '7 8'))
+        file=request.FILES['file_path'].read()
+        graph=load_csv(file)
+        request.session['graph'] = graph
+        return visualize(graph,url)

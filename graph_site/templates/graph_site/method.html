@@ -54,9 +54,11 @@
                                     </div>
                                     <div class="method_group">
                                         <h4>Загрузить</h4>
+                                        {% if file_error %}
                                         <div class="alert alert-danger">
                                             <strong>Ошибка файла</strong>
                                         </div>
+                                        {% endif %}
                                         <p>
                                             <input type="file" name="file_path"/>
                                         </p>

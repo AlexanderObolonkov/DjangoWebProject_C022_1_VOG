@@ -6,6 +6,7 @@ from graph_site.tables.tables import GraphTable
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect
 from pyvis.network import Network
+from time import sleep
 
 
 def input_to_edges(text: str) -> list[tuple[int]]:
@@ -99,6 +100,7 @@ def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
                 d['title'] = d['width']
                 d['width'] = 1
         network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
+    sleep(1)
     return redirect(url)
 
 def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:

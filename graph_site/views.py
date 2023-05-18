@@ -39,15 +39,20 @@ class BFS_Method(SingleTableView):
                 'nav_bar': 'bfs_method',
                 'graph_str': graph,
                 'input_error': request.session.get('input_error', False),
-                'file_error': self.file_error
+                'file_error': request.session.get('file_error',False)
             }
         )
 
     def post(self, request, *args, **kwargs):
         try:
+            request.session['input_error']=False
+            request.session['file_error']=False
             return post_answer(request,'bfs_method')
         except ValueError:
             request.session['input_error'] = True
+            return redirect('bfs_method')
+        except IOError:
+            request.session['file_error']=True
             return redirect('bfs_method')
 
             
@@ -64,17 +69,23 @@ class KruskalMethod(View):
             'graph_site/kruskal_method.html',
             context={
                 'nav_bar': 'kruskal',
-                'graph_str': graph
+                'graph_str': graph,
+                'input_error': request.session.get('input_error', False),
+                'file_error': request.session.get('file_error',False)
             }
         )
 
     def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
         try:
-            self.file_error = None
+            request.session['input_error']=False
+            request.session['file_error']=False
             return post_answer(request,'kruskal')
         except ValueError:
-            self.file_error = 1
+            request.session['input_error'] = True
+            return redirect('kruskal')
+        except IOError:
+            request.session['file_error']=True
             return redirect('kruskal')
 
 
@@ -89,16 +100,22 @@ class DFS_Method(View):
             'graph_site/dfs.html',
             context={
                 'nav_bar': 'dfs',
-                'graph_str': graph
+                'graph_str': graph,
+                'input_error': request.session.get('input_error', False),
+                'file_error': request.session.get('file_error',False)
             }
         )
     def post(self, request: HttpRequest, *args, **kwargs):
-        """POST-запрос для страницы метода Краскала"""
+        """POST-запрос для страницы метода обхода в глубину"""
         try:
-            self.file_error = None
+            request.session['input_error']=False
+            request.session['file_error']=False
             return post_answer(request,'dfs_method')
         except ValueError:
-            self.file_error = 1
+            request.session['input_error'] = True
+            return redirect('dfs_method')
+        except IOError:
+            request.session['file_error']=True
             return redirect('dfs_method')
 
 

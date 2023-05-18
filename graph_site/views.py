@@ -7,24 +7,13 @@ from django.core.mail import send_mail, BadHeaderError
 from django_tables2 import SingleTableView
 
 from BottleWebProject_C022_1_ВОГ import settings
-from graph_site.services.app_services import input_to_edges, generate_graph, graph_to_input,load_csv
+from graph_site.services.app_services import *
 from graph_site.services.math_services import get_nodes 
 from .tables.tables import GraphTable
 from pyvis.network import Network
 
 import re
 
-def result(request, active):
-    graph = request.session['graph']
-    table = GraphTable(graph)
-    return render(
-            request,
-            'graph_site/result.html',
-            context={
-                'nav_bar': active,
-                'table': table
-            }
-        )
 
 
 def csv_post_load(request:HttpRequest,url:str)->HttpResponseRedirect:

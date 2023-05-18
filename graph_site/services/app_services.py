@@ -2,6 +2,9 @@ from random import randint
 from graph_site.services.math_services import get_neighbors
 import csv,io
 import re
+from graph_site.tables.tables import GraphTable
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.shortcuts import render, redirect
 
 def input_to_edges(text: str) -> list[tuple[int]]:
     """Функция для конвертации ввода пользователя к списку кортежей"""
@@ -66,6 +69,20 @@ def load_csv(file_string:str)->list[tuple[int]]:
         except:
             return [()]
     return l
+
+def result(request, active):
+    """Функция для перехода на страницу с результатом решения"""
+    graph = request.session['graph']
+    table = GraphTable(graph)
+    return render(
+            request,
+            'graph_site/result.html',
+            context={
+                'nav_bar': active,
+                'table': table
+            }
+        )
+
 
 if __name__ == '__main__':
     print(input_to_edges('1 2\n'

@@ -30,22 +30,26 @@
                                             <textarea class="graph-input" name="input_graph" cols="10"
                                                       rows="7">{{ graph_str }}</textarea>
                                         </label>
-                                        <div>
-                                            <button name="value" value="visualize" type="submit"
-                                                    class="btn btn-outline-primary">
-                                                Визуализировать
-                                            </button>
-                                            <button name="value" value="decide" type="submit"
-                                                    class="btn btn-outline-primary">
-                                                Решить
-                                            </button>
+                                        <div class="span2">
+                                            <p>
+                                                <button name="value" value="visualize" type="submit"
+                                                        class="btn btn-outline-primary custom">
+                                                    Визуализировать
+                                                </button>
+                                            </p>
+                                            <p>
+                                                <button name="value" value="decide" type="submit"
+                                                        class="btn btn-primary custom">
+                                                    Решить
+                                                </button>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="method_group">
                                         <h4>Случайно</h4>
                                         <button type="submit" name="value" value="generate"
-                                                class="btn btn-outline-primary">
-                                            Создать случайный граф
+                                                class="btn btn-outline-primary custom">
+                                            Сгенерировать граф
                                         </button>
                                     </div>
                                     <div class="method_group">
@@ -53,10 +57,15 @@
                                         <div class="alert alert-danger">
                                             <strong>Ошибка файла</strong>
                                         </div>
-                                        <input type="file" name="file_path"/>
-                                        <button type="submit" name="value" value="load" class="btn btn-outline-primary">
-                                            Загрузить граф
-                                        </button>
+                                        <p>
+                                            <input type="file" name="file_path"/>
+                                        </p>
+                                        <p>
+                                            <button type="submit" name="value" value="load"
+                                                    class="btn btn-outline-primary custom">
+                                                Загрузить граф
+                                            </button>
+                                        </p>
                                     </div>
                                 </form>
                             </div>

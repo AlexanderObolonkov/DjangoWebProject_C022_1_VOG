@@ -97,6 +97,7 @@ def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
         if len(graph[0]) == 3:
             for d in network.get_edges():
                 d['title'] = d['width']
+                d['width'] = 1
         network.save_graph('graph_site/templates/graph_site/pvis_graph_file.html')
     return redirect(url)
 

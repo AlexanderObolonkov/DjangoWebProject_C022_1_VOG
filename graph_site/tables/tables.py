@@ -53,7 +53,7 @@ class GraphTable(tables.Table):
 
 
     class Meta:
-        attrs = {"class":"table table-bordered",
+        attrs = {"class":"table table-bordered w-75", "align": "center"
                 }
         row_attrs = {
                 "align":"center"

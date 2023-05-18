@@ -120,4 +120,8 @@ footer li a {
 .method_p {
     padding: 0;
 }
+
+.custom {
+    width: 150px !important;
+}
 /*Algorithm page*/

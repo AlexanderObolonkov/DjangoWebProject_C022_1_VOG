@@ -152,3 +152,17 @@ def post_answer(request: HttpRequest, url: str) -> HttpResponseRedirect:
     except MultiValueDictKeyError:
         request.session['file_error'] = True
     return redirect(url)
+
+
+def get_session_checks(request:HttpRequest,is_kruskal:bool)->str:
+    """Функция для корректного ответа на Get-запросы в методах решения"""
+    try:
+        saved_graph=request.session['graph']
+        check_length_input_graph(saved_graph,is_kruskal,ValueError)
+        return graph_to_input(saved_graph)
+    except TypeError:
+        return ""
+    except KeyError:
+        return ""
+    except ValueError:
+        return ""

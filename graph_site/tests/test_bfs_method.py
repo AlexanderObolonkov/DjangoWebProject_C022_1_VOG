@@ -2,7 +2,6 @@ from unittest import TestCase
 from graph_site.services.math_services import bfs_algorithm
 
 
-
 class Test(TestCase):
     def test_match_bfs_result(self):
         graphs = [
@@ -14,4 +13,3 @@ class Test(TestCase):
         ]
         for i in graphs:
             self.assertEqual(bfs_algorithm(i[1], i[0]), i[2])
-    

@@ -154,11 +154,11 @@ def post_answer(request: HttpRequest, url: str) -> HttpResponseRedirect:
     return redirect(url)
 
 
-def get_session_checks(request:HttpRequest,is_kruskal:bool)->str:
-    """Функция для корректного ответа на Get-запросы в методах решения"""
+def get_session_checks(request: HttpRequest, is_kruskal: bool) -> str:
+    """Функция для корректного ответа на GET-запросы в методах решения"""
     try:
-        saved_graph=request.session['graph']
-        check_length_input_graph(saved_graph,is_kruskal,ValueError)
+        saved_graph = request.session['graph']
+        check_length_input_graph(saved_graph, is_kruskal, ValueError)
         return graph_to_input(saved_graph)
     except TypeError:
         return ""

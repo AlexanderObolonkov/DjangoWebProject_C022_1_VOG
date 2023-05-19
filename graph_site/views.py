@@ -1,34 +1,34 @@
-from os import getenv
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.http import HttpResponse, HttpRequest
 
-from BottleWebProject_C022_1_ВОГ import settings
-from graph_site.services.app_services import *
-from graph_site.services.math_services import get_nodes 
+from graph_site.services.app_services import graph_to_input, post_answer
 
-import re
-    
 
 class MainView(View):
+    """View главной страницы"""
+
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """GET-запрос для главной страницы"""
         return render(
             request,
             'graph_site/index.html',
             context={
-                'nav_bar': 'index'
+                'nav_bar': 'index',
             }
         )
 
 
-class BFS_Method(View):
-    def get(self, request, *args, **kwargs):
+class BFSMethod(View):
+    """View страницы метода обхода в ширину"""
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода обхода в ширину"""
         try:
             graph = graph_to_input(request.session['graph'])
-        except:
+        except TypeError:
+            graph = []
+        except KeyError:
             graph = []
         return render(
             request,
@@ -37,21 +37,25 @@ class BFS_Method(View):
                 'nav_bar': 'bfs_method',
                 'graph_str': graph,
                 'input_error': request.session.get('input_error', False),
-                'file_error': request.session.get('file_error',False)
+                'file_error': request.session.get('file_error', False),
             }
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         """POST-запрос для страницы метода обхода в ширину"""
-        return post_answer(request,'bfs_method')
-            
+        return post_answer(request, 'bfs_method')
+
 
 class KruskalMethod(View):
-    def get(self, request: HttpRequest, *args, **kwargs):
+    """View страницы метода Краскала"""
+
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода Краскала"""
         try:
             graph = graph_to_input(request.session['graph'])
-        except:
+        except TypeError:
+            graph = []
+        except KeyError:
             graph = []
         return render(
             request,
@@ -60,21 +64,23 @@ class KruskalMethod(View):
                 'nav_bar': 'kruskal',
                 'graph_str': graph,
                 'input_error': request.session.get('input_error', False),
-                'file_error': request.session.get('file_error',False)
+                'file_error': request.session.get('file_error', False),
             }
         )
 
-    def post(self, request: HttpRequest, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """POST-запрос для страницы метода Краскала"""
-        return post_answer(request,'kruskal')
-        
+        return post_answer(request, 'kruskal')
 
-class DFS_Method(View):
+
+class DFSMethod(View):
     def get(self, request, *args, **kwargs):
         """GET-запрос для страницы метода обхода в глубину"""
         try:
             graph = graph_to_input(request.session['graph'])
-        except:
+        except TypeError:
+            graph = []
+        except KeyError:
             graph = []
         return render(
             request,
@@ -83,20 +89,21 @@ class DFS_Method(View):
                 'nav_bar': 'dfs',
                 'graph_str': graph,
                 'input_error': request.session.get('input_error', False),
-                'file_error': request.session.get('file_error',False)
+                'file_error': request.session.get('file_error', False),
             }
         )
-    def post(self, request: HttpRequest, *args, **kwargs):
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """POST-запрос для страницы метода обхода в глубину"""
-        return post_answer(request,'dfs_method')
+        return post_answer(request, 'dfs_method')
+
 
 class Authors(View):
-    def get(self, request, *args, **kwargs):
+    """View страницы авторов"""
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        """GET-запрос для страницы авторов"""
         return render(
             request,
             'graph_site/authors.html',
-            context={
-                'nav_bar': 'authors'
-            }
         )
-

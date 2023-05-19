@@ -28,7 +28,6 @@ def input_to_edges(text: str,is_kruskal:bool) -> list[tuple[int]]:
             raise ValueError
     graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
     check_length_input_graph(graph,is_kruskal,ValueError)
-    check_connect_graph(graph,ValueError)
     return graph
 
 

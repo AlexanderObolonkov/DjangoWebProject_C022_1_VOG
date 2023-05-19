@@ -98,7 +98,7 @@ def bfs_algoritm(graph: list[tuple[int, int]], start: int) -> list[tuple[int, in
     return ostov
 
 
-def search_next_node(value, visited, tree, graph):
+def search_next_node(value:int, visited, tree, graph)->None:
     for neighbour in list(get_neighbors(graph, value)):
         if neighbour not in visited:
             visited.append(neighbour)
@@ -106,7 +106,7 @@ def search_next_node(value, visited, tree, graph):
             search_next_node(neighbour, visited, tree, graph)
 
 
-def dfs_algorithm(graph, start_value):
+def dfs_algorithm(graph:list[tuple[int]], start_value:int)->list[tuple[int,int]]:
     visited = [start_value]
     tree = []
     search_next_node(start_value, visited, tree, graph)

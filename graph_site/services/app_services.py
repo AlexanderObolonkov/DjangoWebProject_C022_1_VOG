@@ -1,5 +1,5 @@
 from random import randint
-from graph_site.services.math_services import get_neighbors,get_nodes
+from graph_site.services.math_services import *
 import csv,io
 import re
 from graph_site.tables.tables import GraphTable
@@ -28,6 +28,7 @@ def input_to_edges(text: str,is_kruskal:bool) -> list[tuple[int]]:
             raise ValueError
     graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
     check_length_input_graph(graph,is_kruskal,ValueError)
+    check_connect_graph(graph,ValueError)
     return graph
 
 
@@ -58,9 +59,9 @@ def generate_graph(is_kruskal:bool) -> list[tuple[int]]:
                 if edge not in graph:
                     break
         graph.append(edge)
-    for node in range (1,max_value+1):
+    for node in get_nodes(graph):
         if not(len(list(get_neighbors(graph,node)))):
-            return generate_graph(max_value)
+            return generate_graph(is_kruskal)
     if is_kruskal:
         generate_edge_weights(graph)
     return graph
@@ -78,10 +79,10 @@ def load_csv(file_string:str,is_kruskal:bool)->list[tuple[int]]:
     check_length_input_graph(graph,is_kruskal,IOError)
     return graph
 
-def result(request, active):
+def result(request:HttpRequest, active:str,tree:list[tuple[int]]):
     """Функция для перехода на страницу с результатом решения"""
     graph = request.session['graph']
-    table = GraphTable(graph)
+    table = GraphTable(tree)
     return render(
             request,
             'graph_site/result.html',
@@ -106,6 +107,14 @@ def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
     sleep(1)
     return redirect(url)
 
+def decide(graph:list[tuple[int]],url:str)->list[tuple[int]]:
+    if url=='dfs_method':
+        return dfs_algorithm(graph,graph[0][0])
+    elif url=='kruskal':
+        print(kruskal_algorithm2(graph))
+        return kruskal_algorithm2(graph)
+    return bfs_algoritm(graph,graph[0][0])
+
 def post_answer(request:HttpRequest,url:str):
     """Функция корректного ответа на POST-запрос"""
     try:
@@ -113,8 +122,8 @@ def post_answer(request:HttpRequest,url:str):
         request.session['file_error']=False
         if request.POST['value'] == 'decide':
             graph = input_to_edges(request.POST['input_graph'],url=='kruskal')
-            request.session['graph'] = graph
-            return result(request, url)
+            tree=decide(graph,url)
+            return result(request, url,tree)
         else:
             if request.POST['value'] == 'visualize':
                 # Из-за ассинхронной работы request.POST['input_graph'] его нужно

@@ -34,13 +34,11 @@ class GraphTable(tables.Table):
                 else:
                     row[j] = 0
             data.append(row)
-        print([i for i in self.base_columns])
         cur_nodes = []
         for i in list(self.base_columns.keys())[1:]:
             if int(i) not in nodes:
                 cur_nodes.append((i, None))
         super().__init__(data, extra_columns=cur_nodes)
-        print([i for i in self.base_columns])
         # Экспортирование новосозданной таблички
         export = TableExport('csv', self)
         try:

@@ -3,30 +3,32 @@ from graph_site.services.math_services import get_neighbors,get_nodes
 import csv,io
 import re
 from graph_site.tables.tables import GraphTable
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect
 from pyvis.network import Network
 from time import sleep
 
 
-def input_to_edges(text: str) -> list[tuple[int]]:
+def check_length_input_graph(graph:list[tuple[int]],is_kruskal:bool,error:Exception)->None:
+    """Функция для проверки введенного графа на соответствие алгоритму решения"""
+    for edge in graph:
+        if len(edge)!=2+int(is_kruskal):
+            raise error
+
+
+def input_to_edges(text: str,is_kruskal:bool) -> list[tuple[int]]:
     """Функция для конвертации ввода пользователя к списку кортежей"""
     check_str = " ".join([i.strip() for i in text.split()])
     check_str += " "
     if(len(text.split("\r\n")[0].split()) == 2):
-        if(re.fullmatch(r"(\d+ \d+ )+", check_str)):
-            graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
-            return graph
-        else:
-            print(repr(check_str))
+        if not(re.fullmatch(r"(\d+ \d+ )+", check_str)):
             raise ValueError
     else:
-        if(re.fullmatch(r"(\d+ \d+ \d+ )+", check_str)):
-            graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
-            return graph
-        else:
-            print(repr(check_str))
+        if not(re.fullmatch(r"(\d+ \d+ \d+ )+", check_str)):
             raise ValueError
+    graph = [tuple(int(j) for j in i.split()) for i in text.split('\n')]
+    check_length_input_graph(graph,is_kruskal,ValueError)
+    return graph
 
 
 def graph_to_input(graph: list[tuple[int]]) -> str:
@@ -42,7 +44,7 @@ def generate_edge_weights(graph:list[tuple[int]])->None:
         edge.append(randint(1,20))
         graph.insert(i,tuple(edge))
 
-def generate_graph(is_kruskal=False) -> list[tuple[int]]:
+def generate_graph(is_kruskal:bool) -> list[tuple[int]]:
     """Функция для генерации графика"""
     max_value=randint(3,7)
     graph=[]
@@ -63,17 +65,18 @@ def generate_graph(is_kruskal=False) -> list[tuple[int]]:
         generate_edge_weights(graph)
     return graph
     
-def load_csv(file_string:str)->list[tuple[int]]:
+def load_csv(file_string:str,is_kruskal:bool)->list[tuple[int]]:
     """Функция для парсинга выбранного файла"""
     file_string=bytes.decode(file_string,"utf-8")
     io_string = io.StringIO(file_string)
-    l=list()
+    graph=list()
     for row in csv.reader(io_string):
         try:
-            l.append(tuple([int(i) for i in row]))
+            graph.append(tuple([int(i) for i in row]))
         except:
             raise IOError
-    return l
+    check_length_input_graph(graph,is_kruskal,IOError)
+    return graph
 
 def result(request, active):
     """Функция для перехода на страницу с результатом решения"""
@@ -105,23 +108,28 @@ def visualize(graph:list[tuple[int]],url:str)->HttpResponseRedirect:
 
 def post_answer(request:HttpRequest,url:str):
     """Функция корректного ответа на POST-запрос"""
-    if request.POST['value'] == 'decide':
-        graph = input_to_edges(request.POST['input_graph'])
-        request.session['graph'] = graph
-        return result(request, url)
-    elif request.POST['value'] == 'visualize':
-        # Из-за ассинхронной работы request.POST['input_graph'] его нужно
-        # обернуть в переменную, чтобы точно передался новый результат
-        s=request.POST['input_graph']
-        graph = input_to_edges(s)
-        request.session['graph'] = graph
-        return visualize(graph,url)
-    elif request.POST['value'] == 'generate':
-        graph=generate_graph(url=='kruskal')
-        request.session['graph'] = graph
-        return visualize(graph,url)
-    elif request.POST['value'] == 'load':
-        file=request.FILES['file_path'].read()
-        graph=load_csv(file)
-        request.session['graph'] = graph
-        return visualize(graph,url)
+    try:
+        request.session['input_error']=False
+        request.session['file_error']=False
+        if request.POST['value'] == 'decide':
+            graph = input_to_edges(request.POST['input_graph'],url=='kruskal')
+            request.session['graph'] = graph
+            return result(request, url)
+        else:
+            if request.POST['value'] == 'visualize':
+                # Из-за ассинхронной работы request.POST['input_graph'] его нужно
+                # обернуть в переменную, чтобы точно передался новый результат
+                s=request.POST['input_graph']
+                graph = input_to_edges(s,url=='kruskal')    
+            elif request.POST['value'] == 'generate':
+                graph=generate_graph(url=='kruskal')
+            elif request.POST['value'] == 'load':
+                file=request.FILES['file_path'].read()
+                graph=load_csv(file,url=='kruskal')
+            request.session['graph'] = graph
+            return visualize(graph,url)
+    except ValueError:
+        request.session['input_error'] = True
+    except IOError:
+        request.session['file_error']=True
+    return redirect(url)

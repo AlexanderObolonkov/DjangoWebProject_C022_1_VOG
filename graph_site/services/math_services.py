@@ -111,19 +111,3 @@ def dfs_algorithm(graph, start_value):
     tree = []
     search_next_node(start_value, visited, tree, graph)
     return tree
-
-
-if __name__ == '__main__':
-    """
-    БЫЛО: [(вес, откуда, куда), ...]
-    СТАЛО: [(откуда, куда, вес), ...]
-    i[0] = i[2]
-    i[1] = i[0]
-    i[2] = i[1]
-    """
-    some_graph = [(13, 1, 2), (18, 1, 3), (17, 1, 4), (14, 1, 5), (22, 1, 6),
-                  (26, 2, 3), (22, 2, 5), (3, 3, 4), (19, 4, 6)]
-    abcd_graph = [(1, 2, 13), (1, 3, 18), (1, 4, 17), (1, 5, 14), (1, 6, 22),
-                  (2, 3, 26), (2, 5, 22), (3, 4, 3), (4, 6, 19)]
-    print(kruskal_algorithm(some_graph))
-    print(kruskal_algorithm2(abcd_graph))

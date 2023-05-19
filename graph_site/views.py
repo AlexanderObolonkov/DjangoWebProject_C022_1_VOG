@@ -3,7 +3,6 @@ from os import getenv
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
-from django_tables2 import SingleTableView
 
 from BottleWebProject_C022_1_ВОГ import settings
 from graph_site.services.app_services import *
@@ -24,10 +23,9 @@ class MainView(View):
         )
 
 
-class BFS_Method(SingleTableView):
-    input_error = None
-    file_error = None
+class BFS_Method(View):
     def get(self, request, *args, **kwargs):
+        """GET-запрос для страницы метода обхода в ширину"""
         try:
             graph = graph_to_input(request.session['graph'])
         except:
@@ -44,17 +42,8 @@ class BFS_Method(SingleTableView):
         )
 
     def post(self, request, *args, **kwargs):
-        try:
-            request.session['input_error']=False
-            request.session['file_error']=False
-            return post_answer(request,'bfs_method')
-        except ValueError:
-            request.session['input_error'] = True
-            return redirect('bfs_method')
-        except IOError:
-            request.session['file_error']=True
-            return redirect('bfs_method')
-
+        """POST-запрос для страницы метода обхода в ширину"""
+        return post_answer(request,'bfs_method')
             
 
 class KruskalMethod(View):
@@ -77,20 +66,12 @@ class KruskalMethod(View):
 
     def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода Краскала"""
-        try:
-            request.session['input_error']=False
-            request.session['file_error']=False
-            return post_answer(request,'kruskal')
-        except ValueError:
-            request.session['input_error'] = True
-            return redirect('kruskal')
-        except IOError:
-            request.session['file_error']=True
-            return redirect('kruskal')
-
+        return post_answer(request,'kruskal')
+        
 
 class DFS_Method(View):
     def get(self, request, *args, **kwargs):
+        """GET-запрос для страницы метода обхода в глубину"""
         try:
             graph = graph_to_input(request.session['graph'])
         except:
@@ -107,17 +88,7 @@ class DFS_Method(View):
         )
     def post(self, request: HttpRequest, *args, **kwargs):
         """POST-запрос для страницы метода обхода в глубину"""
-        try:
-            request.session['input_error']=False
-            request.session['file_error']=False
-            return post_answer(request,'dfs_method')
-        except ValueError:
-            request.session['input_error'] = True
-            return redirect('dfs_method')
-        except IOError:
-            request.session['file_error']=True
-            return redirect('dfs_method')
-
+        return post_answer(request,'dfs_method')
 
 class Authors(View):
     def get(self, request, *args, **kwargs):

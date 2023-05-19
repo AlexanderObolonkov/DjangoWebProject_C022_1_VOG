@@ -1,4 +1,4 @@
-from unittest import TestCase
+from django.test import TestCase
 from graph_site.services.math_services import dfs_algorithm
 
 

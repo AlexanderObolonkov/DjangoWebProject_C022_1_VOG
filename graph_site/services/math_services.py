@@ -14,7 +14,7 @@ def get_nodes(graph: list[tuple[int]]) -> list[int]:
     return sorted(list(set([i[j] for i in graph for j in range(2)])))
 
 
-def kruskal_algorithm(graph: list[tuple[int]]) -> list[tuple[int]]:
+def kruskal_algorithm(graph: list[tuple[int, ...]]) -> list[tuple[int]]:
     """Метод Краскала"""
     sorted_graph = sorted(graph, key=lambda x: x[2])
     connected_vertices = set()
@@ -48,7 +48,7 @@ def kruskal_algorithm(graph: list[tuple[int]]) -> list[tuple[int]]:
     return skeleton
 
 
-def bfs_algorithm(graph: list[tuple[int]], start: int) -> list[tuple[int]]:
+def bfs_algorithm(graph: list[tuple[int, ...]], start: int) -> list[tuple[int]]:
     queue = deque()
     queue.append(start)
     was = {start}
@@ -74,7 +74,7 @@ def search_next_node(value: int, visited, tree, graph) -> None:
             search_next_node(neighbour, visited, tree, graph)
 
 
-def dfs_algorithm(graph: list[tuple[int]], start_value: int) -> list[tuple[int, int]]:
+def dfs_algorithm(graph: list[tuple[int, ...]], start_value: int) -> list[tuple[int, int]]:
     visited = [start_value]
     tree = []
     search_next_node(start_value, visited, tree, graph)

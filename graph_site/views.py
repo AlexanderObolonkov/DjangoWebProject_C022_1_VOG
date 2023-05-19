@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, HttpRequest
 
-from graph_site.services.app_services import post_answer,get_session_checks
+from graph_site.services.app_services import post_answer, get_session_checks
 
 
 class MainView(View):
@@ -24,7 +24,7 @@ class BFSMethod(View):
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода обхода в ширину"""
-        graph=get_session_checks(request,False)
+        graph = get_session_checks(request, False)
         return render(
             request,
             'graph_site/bfs_method.html',
@@ -46,7 +46,7 @@ class KruskalMethod(View):
 
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """GET-запрос для страницы метода Краскала"""
-        graph=get_session_checks(request,True)
+        graph = get_session_checks(request, True)
         return render(
             request,
             'graph_site/kruskal_method.html',
@@ -66,7 +66,7 @@ class KruskalMethod(View):
 class DFSMethod(View):
     def get(self, request, *args, **kwargs):
         """GET-запрос для страницы метода обхода в глубину"""
-        graph=get_session_checks(request,False)
+        graph = get_session_checks(request, False)
         return render(
             request,
             'graph_site/dfs.html',

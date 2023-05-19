@@ -15,5 +15,6 @@ PractEnv/
 .venv/
 pvis_graph_file.html
 *.swp
+*.swo
 graph_site/logfiles/
 README.md
